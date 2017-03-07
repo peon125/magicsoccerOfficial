@@ -10,21 +10,23 @@ public class FireCharacter : MonoBehaviour
     public float[] delays;
     public string[] descriptions;
     public float speed, boundary;
-    int[] buttonsValues;
-    float[] cooldowns;
+    CooldownHandler cooldownHandler;
     Player player;
     Transform bulletsTransform;
     GameObject ball;
+    int[] buttonsValues;
+    float[] cooldowns;
     bool doesAHumanPlay;
 
 	void Start()
     {
-        player = transform.parent.GetComponent<Player>();
-        doesAHumanPlay = player.GetDoesAHumanPlay();
-        buttonsValues = player.GetButtonsValues();
         cooldowns = new float[3];
+        player = transform.parent.GetComponent<Player>();
+        cooldownHandler = player.cooldownHandler;
         bulletsTransform = GameObject.Find("bullets").transform;
         ball = GameObject.Find("ball");
+        doesAHumanPlay = player.GetDoesAHumanPlay();
+        buttonsValues = player.GetButtonsValues();
 
         if(!doesAHumanPlay)
         {
@@ -53,12 +55,19 @@ public class FireCharacter : MonoBehaviour
         {
             ResetCooldowns();
         }
+
+        for (int i = 0; i < cooldowns.Length; i++)
+        {
+            cooldowns[i] -= Time.deltaTime;
+        }
+
+        cooldownHandler.setCooldowns(cooldowns);
 	}
 
     void Move()
     {
         transform.position += new Vector3(0, 0, (float)(buttonsValues[0] * speed));
-        transform.position = new Vector3(0, transform.position.y, Mathf.Clamp(transform.position.z, -boundary, boundary));
+        transform.position = new Vector3(transform.position.x, transform.position.y, Mathf.Clamp(transform.position.z, -boundary, boundary));
     }
 
     void Shoot()
@@ -69,8 +78,7 @@ public class FireCharacter : MonoBehaviour
             if(buttonsValues[i] == 1 && cooldowns [j] <=0)
             {
                 Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[j].transform.position.y, transform.position.z);
-                GameObject bullet = Instantiate(bulletsPrefabs[j], pos, bulletsPrefabs[j].transform.rotation, bulletsTransform) as GameObject;
-                bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
+                Instantiate(bulletsPrefabs[j], pos, bulletsPrefabs[j].transform.rotation, bulletsTransform);
                 cooldowns[j] = delays[j];
             }
         }
@@ -85,21 +93,6 @@ public class FireCharacter : MonoBehaviour
 
     void BotMove()
     {
-        for (int i = 0; i < cooldowns.Length; i++)
-        {
-            if(cooldowns[i] <= 0)
-            {
-                Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[i].transform.position.y, transform.position.z);
-                GameObject bullet = Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
-                bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
-                cooldowns[i] = delays[i];
-                break;
-            }
-        }
-    }
-
-    void BotShoot()
-    {
         if (ball.transform.position.z > transform.position.z)
         {
             transform.position += new Vector3(0, 0, speed);
@@ -107,6 +100,21 @@ public class FireCharacter : MonoBehaviour
         else if (ball.transform.position.z < transform.position.z)
         {
             transform.position -= new Vector3(0, 0, speed);
+        }
+    }
+
+    void BotShoot()
+    {
+        for (int i = 0; i < cooldowns.Length; i++)
+        {
+            if (cooldowns[i] <= 0)
+            {
+                Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[i].transform.position.y, transform.position.z);
+                GameObject bullet = Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
+                bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
+                cooldowns[i] = delays[i];
+                break;
+            }
         }
     }
 

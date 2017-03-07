@@ -17,13 +17,13 @@ public class MatchControl : MonoBehaviour
         p2Score = 0;
 	}
 
-    public void IncrementScore(string player)
+    public void IncrementScore(int player)
     {
-        if (player == "player1")
+        if (player == 1)
         {
             p1Score++;
         }
-        else if (player == "player2")
+        else if (player == 2)
         {
             p2Score++;
         }

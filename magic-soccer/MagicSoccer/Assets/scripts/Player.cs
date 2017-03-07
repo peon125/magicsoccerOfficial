@@ -15,20 +15,22 @@ public class Player : MonoBehaviour
 
 	void Start() 
     {
+        buttonsValues = new int[4];
         doesAHumanPlay = true;
         gameSet = GameObject.Find("gameSet").GetComponent<GameSet>();
-        buttonsValues = new int[4];
 
         for (int i = 0; i < buttonsValues.Length; i++)
         {
             buttonsValues[i] = 0;
         }
 
-        Vector3 pos = new Vector3(startingPositionX, 1, startingPositionZ);
+        GameObject characterToSpawn = gameSet.selectedCharacters[whichPlayer - 1];
 
-        Instantiate(gameSet.selectedCharacters[whichPlayer], pos, new Quaternion(0, 180 * (whichPlayer - 1), 0, 0), transform);
+        Vector3 pos = new Vector3(startingPositionX, characterToSpawn.transform.position.y, startingPositionZ);
 
-        doesAHumanPlay = gameSet.playingPlayers[whichPlayer];
+        Instantiate(characterToSpawn, pos, new Quaternion(0, 180 * (whichPlayer - 1), 0, 0), transform);
+
+        doesAHumanPlay = gameSet.playingPlayers[whichPlayer - 1];
 	}
 
     public void SetButtonValueToOne(int i)

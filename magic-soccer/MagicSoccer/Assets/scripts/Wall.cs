@@ -13,17 +13,17 @@ public class Wall : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.gameObject.tag == "ball")
+        if(collision.gameObject.name == "ball")
         {
             durability--;
 
             switch (durability)
             {
                 case 2:
-                    transform.GetChild(0).GetComponent<Renderer>().material.color = new Color(1, 0.5f, 0);
+                    GetComponent<MeshRenderer>().material.color = new Color(1, 0.5f, 0);
                     break;
                 case 1:
-                    transform.GetChild(0).GetComponent<Renderer>().material.color = Color.red;
+                    GetComponent<MeshRenderer>().material.color = Color.red;
                     break;
                 case 0:
                     gameObject.SetActive(false);
@@ -35,7 +35,7 @@ public class Wall : MonoBehaviour
     public void BringBackToLife()
     {
         gameObject.SetActive(true);
-        transform.GetChild(0).GetComponent<Renderer>().material.color = Color.yellow;
+        GetComponent<Renderer>().material.color = Color.yellow;
         durability = 3;
     }
 }

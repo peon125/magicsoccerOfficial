@@ -16,29 +16,26 @@ public class Bullet : MonoBehaviour
             speed = -speed;
         }
 
-        force *= 10;
-
         GetComponent<Rigidbody>().velocity = new Vector3(speed, 0, 0);
 	}
 
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
-
         if(collision.gameObject.name == "ball")
         {
             Rigidbody r = GetComponent<Rigidbody>();
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(force * r.velocity);
+            collision.gameObject.GetComponent<Rigidbody>().velocity +=(force * new Vector3(r.velocity.x, 0, -r.velocity.z));
+            Destroy(gameObject);
         }
     }
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.name == "half" && whatKindOfShot == 0)
+        if ((collider.name == "half" && whatKindOfShot == 0) || (collider.name == "wholeField" && whatKindOfShot == 1))
         {
             Destroy(gameObject);
         }
-        else if (collider.name == "wholeField" && whatKindOfShot != 0)
+        else if (collider.name == "wholeField" && whatKindOfShot == 1)
         {
             Destroy(gameObject);
         }
