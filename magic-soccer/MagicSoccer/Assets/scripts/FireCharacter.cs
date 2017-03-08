@@ -39,19 +39,18 @@ public class FireCharacter : MonoBehaviour
 	
 	void Update()
     {
-        if(doesAHumanPlay)
+        if (doesAHumanPlay)
         {
             buttonsValues = player.GetButtonsValues();
 
-            Move();
-
             Shoot();
         }
-        else{
-            IAmABot();
+        else
+        {
+            BotShoot();
         }
 
-        if(player.GetDoResetCooldowns())
+        if (player.GetDoResetCooldowns())
         {
             ResetCooldowns();
         }
@@ -62,7 +61,19 @@ public class FireCharacter : MonoBehaviour
         }
 
         cooldownHandler.setCooldowns(cooldowns);
-	}
+    }
+
+    void FixedUpdate()
+    {
+        if (doesAHumanPlay)
+        {
+            Move();
+        }
+        else
+        {
+            BotMove();
+        }
+    }
 
     void Move()
     {
@@ -82,13 +93,6 @@ public class FireCharacter : MonoBehaviour
                 cooldowns[j] = delays[j];
             }
         }
-    }
-
-    void IAmABot()
-    {
-        BotMove();
-
-        BotShoot();
     }
 
     void BotMove()
