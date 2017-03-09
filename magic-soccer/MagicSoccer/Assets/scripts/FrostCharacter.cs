@@ -5,9 +5,7 @@ using UnityEngine;
 public class FrostCharacter : MonoBehaviour 
 {
     public GameObject[] bulletsPrefabs;
-    public Sprite[] pictures;
     public float[] delays;
-    public string[] descriptions;
     public float speed, boundary;
     public int wallsDistanceFromAPlayer;
     CooldownHandler cooldownHandler;

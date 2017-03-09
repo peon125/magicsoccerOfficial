@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class FireCharacter : MonoBehaviour 
 {
     public GameObject[] bulletsPrefabs;
-    public Sprite[] pictures;
     public float[] delays;
-    public string[] descriptions;
     public float speed, boundary;
     CooldownHandler cooldownHandler;
     Player player;

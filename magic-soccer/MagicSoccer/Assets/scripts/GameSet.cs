@@ -26,11 +26,6 @@ public class GameSet : MonoBehaviour
         playingPlayers[player] = !playingPlayers[player];
     }
 
-    //public GameObject GetAPlayersSelectedCharacter(int player) usunąććććććć
-    //{
-    //    return characters[selectedCharacters[player]];
-    //}
-
     public void SetAPlayersSelectedCharacter(int player, int index)
     {
         selectedCharacters[player] = characters[index];
