@@ -148,6 +148,8 @@ public class FrostCharacter : MonoBehaviour
         {
             cooldowns[i] = 0;
         }
+
+        player.SetDoResetCooldowns(false);
     }
 
     public void SetCanShootASuperBullet()

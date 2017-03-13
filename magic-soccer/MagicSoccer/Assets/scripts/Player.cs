@@ -63,8 +63,8 @@ public class Player : MonoBehaviour
         return doResetCooldowns;
     }
 
-    public void SetDoResetCooldowns()
+    public void SetDoResetCooldowns(bool b)
     {
-        doResetCooldowns = true;
+        doResetCooldowns = b;
     }
 }

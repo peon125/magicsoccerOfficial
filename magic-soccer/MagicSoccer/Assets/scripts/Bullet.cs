@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         if(collision.gameObject.name == "ball")
         {
             Rigidbody r = GetComponent<Rigidbody>();
-            collision.gameObject.GetComponent<Rigidbody>().velocity +=(force * r.velocity);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(force * r.velocity);
             Destroy(gameObject);
         }
     }

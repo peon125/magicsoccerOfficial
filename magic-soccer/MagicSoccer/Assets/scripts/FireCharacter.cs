@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class FireCharacter : MonoBehaviour 
 {
+    public AudioClip[] audioClips;
     public GameObject[] bulletsPrefabs;
     public float[] delays;
     public float speed, boundary;
@@ -81,6 +82,8 @@ public class FireCharacter : MonoBehaviour
 
     void Shoot()
     {
+        AudioSource audioSource = GetComponent<AudioSource>();
+
         for (int i = 1; i < buttonsValues.Length; i++)
         {
             int j = i - 1;
@@ -89,6 +92,8 @@ public class FireCharacter : MonoBehaviour
                 Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[j].transform.position.y, transform.position.z);
                 Instantiate(bulletsPrefabs[j], pos, bulletsPrefabs[j].transform.rotation, bulletsTransform);
                 cooldowns[j] = delays[j];
+                audioSource.clip = audioClips[i-1];
+                audioSource.Play();
             }
         }
     }
@@ -107,6 +112,8 @@ public class FireCharacter : MonoBehaviour
 
     void BotShoot()
     {
+        AudioSource audioSource = GetComponent<AudioSource>();
+
         for (int i = 0; i < cooldowns.Length; i++)
         {
             if (cooldowns[i] <= 0)
@@ -115,6 +122,8 @@ public class FireCharacter : MonoBehaviour
                 GameObject bullet = Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
                 bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
                 cooldowns[i] = delays[i];
+                audioSource.clip = audioClips[i-1];
+                audioSource.Play();
                 break;
             }
         }
@@ -126,5 +135,7 @@ public class FireCharacter : MonoBehaviour
         {
             cooldowns[i] = 0;
         }
+
+        player.SetDoResetCooldowns(false);
     }
 }

@@ -35,8 +35,8 @@ public class MatchControl : MonoBehaviour
         p1Wall.GetComponent<Wall>().BringBackToLife();
         p2Wall.GetComponent<Wall>().BringBackToLife();
 
-        player1.SetDoResetCooldowns();
-        player2.SetDoResetCooldowns();
+        player1.SetDoResetCooldowns(true);
+        player2.SetDoResetCooldowns(true);
 
         foreach(Transform t in bulletsTransform)
         {
