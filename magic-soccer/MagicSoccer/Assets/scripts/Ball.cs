@@ -6,10 +6,12 @@ public class Ball : MonoBehaviour
 {
     public float maxPositionZ;
     public AudioClip hitSound;
+    float frequency;
 
 	void Start() 
     {
         ResetPosition();
+        frequency = 0;
 	}
 
     public void ResetPosition()
@@ -23,9 +25,7 @@ public class Ball : MonoBehaviour
     void OnCollisionEnter()
     {
         AudioSource audioSource = GetComponent<AudioSource>();
-
         audioSource.clip = hitSound;
-
         audioSource.Play();
     }
 }

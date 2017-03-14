@@ -134,6 +134,7 @@ public class FireCharacter : MonoBehaviour
         for (int i = 0; i < cooldowns.Length; i++)
         {
             cooldowns[i] = 0;
+            buttonsValues[i] = 0;
         }
 
         player.SetDoResetCooldowns(false);

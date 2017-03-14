@@ -9,13 +9,21 @@ public class MatchControl : MonoBehaviour
     public Player player1, player2;
     public GameObject ball, p1Wall, p2Wall;
     public Transform bulletsTransform;
+    public EndBoard endBoard;
     int p1Score, p2Score;
+    float time;
 
 	void Start()
     {
         p1Score = 0;
         p2Score = 0;
+        time = 0;
 	}
+
+    void Update()
+    {
+        time += Time.deltaTime;
+    }
 
     public void IncrementScore(int player)
     {
@@ -29,6 +37,14 @@ public class MatchControl : MonoBehaviour
         }
 
         scoreText.text = p1Score + " - " + p2Score;
+
+        //if((p1Score >= 3 || p2Score >= 3) && (p1Score > p2Score + 1 || p2Score > p1Score + 1))
+        if(p1Score == 1)
+        {
+            endBoard.gameObject.SetActive(true);
+            endBoard.EndGame(p1Score, p2Score, (int)time);
+            return;
+        }
 
         ball.GetComponent<Ball>().ResetPosition();
 
