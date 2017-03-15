@@ -1,20 +1,22 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GameSet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Grass.cs">
     <Files>
       <File FileName="Assets\scripts\CooldownHandler.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\FrostCharacter.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\FireCharacter.cs" Line="41" Column="9" />
-      <File FileName="Assets\scripts\GameSet.cs" Line="30" Column="55" />
-      <File FileName="Assets\scripts\Menu01Control.cs" Line="15" Column="6" />
-      <File FileName="Assets\scripts\Music.cs" Line="20" Column="48" />
-      <File FileName="Assets\scripts\PauseMenu.cs" Line="100" Column="59" />
-      <File FileName="Assets\scripts\Grass.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\Menu02Control.cs" Line="25" Column="68" />
+      <File FileName="Assets\scripts\FireCharacter.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\GameSet.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Menu01Control.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Music.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\PauseMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Grass.cs" Line="33" Column="111" />
+      <File FileName="Assets\scripts\Menu02Control.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <RunToCursorBreakpoint file="D:\UnityProjects\soccerOfficial\magic-soccer\MagicSoccer\Assets\scripts\Grass.cs" line="23" column="10" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

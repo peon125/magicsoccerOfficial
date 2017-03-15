@@ -21,7 +21,7 @@ public class Grass : MonoBehaviour
 
         if(mode == 0)
         {
-            GetComponent<MeshRenderer>().material.color = Color.green;
+            GetComponent<MeshRenderer>().material.color = new Color(38 / 255, 1, 38 / 255);
             ball.GetComponent<MeshRenderer>().material.color = Color.white;
         } 
         else if(mode == 1)
@@ -30,7 +30,7 @@ public class Grass : MonoBehaviour
 
             if (time >= 0.2f)
             {
-                Color color = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
+                Color color = new Color(Random.Range(0.5f, 0.9f), Random.Range(0.5f,  0.9f), Random.Range(0.5f,  0.9f));
                 GetComponent<MeshRenderer>().material.color = color;
                 ball.GetComponent<MeshRenderer>().material.color = new Color(1 - color.r, 1 - color.g, 1 - color.b);
                 time = 0;
