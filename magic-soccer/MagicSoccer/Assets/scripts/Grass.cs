@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Grass : MonoBehaviour 
 {
-    float time;
+    public GameObject ball;
     GameSet gameSet;
+    float time;
     int mode;
 
     void Start()
@@ -21,6 +22,7 @@ public class Grass : MonoBehaviour
         if(mode == 0)
         {
             GetComponent<MeshRenderer>().material.color = Color.green;
+            ball.GetComponent<MeshRenderer>().material.color = Color.white;
         } 
         else if(mode == 1)
         {
@@ -28,7 +30,9 @@ public class Grass : MonoBehaviour
 
             if (time >= 0.2f)
             {
-                GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                Color color = new Color(Random.Range(0.3f, 1f), Random.Range(0.3f, 1f), Random.Range(0.3f, 1f));
+                GetComponent<MeshRenderer>().material.color = color;
+                ball.GetComponent<MeshRenderer>().material.color = new Color(1 - color.r, 1 - color.g, 1 - color.b);
                 time = 0;
             }
         }

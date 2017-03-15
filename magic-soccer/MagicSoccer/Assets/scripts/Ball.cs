@@ -6,13 +6,19 @@ public class Ball : MonoBehaviour
 {
     public float maxPositionZ;
     public AudioClip hitSound;
-    float frequency;
+    GameSet gameSet;
 
 	void Start() 
     {
         ResetPosition();
-        frequency = 0;
+
+        gameSet = GameObject.Find("gameSet").GetComponent<GameSet>();
 	}
+
+    void Update()
+    {
+        GetComponent<AudioSource>().volume = gameSet.GetSoundsVolume();
+    }
 
     public void ResetPosition()
     {

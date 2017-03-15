@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu02Control : MonoBehaviour 
 {
+    public Camera sceneCamera;
     public Transform[] listsTranforms;
     public Image[] p1SkillsPics;
     public Image[] p2SkillsPics;
@@ -20,6 +21,8 @@ public class Menu02Control : MonoBehaviour
     void Start()
     {
         gameSet = GameObject.Find("gameSet").GetComponent<GameSet>();
+
+        sceneCamera.backgroundColor = gameSet.GetBackgroundColor();
 
         skillsPics = new Image[gameSet.characters.Length, p1SkillsPics.Length];
         skillsDescs = new Text[gameSet.characters.Length, p1SkillsDescs.Length];

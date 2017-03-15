@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour 
 {
@@ -14,10 +16,6 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        isPaused = false;
-        colorMode = 0;
-        time = 0;
-
         if (GameObject.FindWithTag("NotToDestroy-PauseMenu"))
         {
             Destroy(gameObject);
@@ -27,6 +25,9 @@ public class PauseMenu : MonoBehaviour
             tag = "NotToDestroy-PauseMenu";
         }
 
+        isPaused = false;
+        time = 0;
+        colorMode = gameSet.GetGrassColorMode();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -63,6 +64,19 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = !isPaused;
         transform.GetChild(0).gameObject.SetActive(isPaused);
+
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("uibutton"))
+        {
+            if(gameObject.GetComponent<Button>())
+            {
+                gameObject.GetComponent<Button>().interactable = !isPaused;
+            }
+
+            if(gameObject.GetComponent<EventTrigger>())
+            {
+                gameObject.GetComponent<EventTrigger>().enabled = !isPaused;
+            }
+        }
     }
 
     public void ChangeColors(GameObject go)
@@ -79,5 +93,11 @@ public class PauseMenu : MonoBehaviour
         {
             go.transform.GetChild(0).GetComponent<Text>().text = "illuminating";
         }
+    }
+
+    public void GoHome()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        SceneManager.LoadScene("menu01");
     }
 }

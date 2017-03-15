@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FrostCharacter : MonoBehaviour 
 {
+    public AudioClip[] audioClips;
     public GameObject[] bulletsPrefabs;
     public float[] delays;
     public float speed, boundary;
@@ -38,16 +39,17 @@ public class FrostCharacter : MonoBehaviour
 
     void Update()
     {
+        GetComponent<AudioSource>().volume = player.GetSoundsVolume();
+
         if(doesAHumanPlay)
         {
             buttonsValues = player.GetButtonsValues();
 
-            Move();
-
             Shoot();
         }
-        else{
-            IAmABot();
+        else
+        {
+            BotShoot();
         }
 
         if(player.GetDoResetCooldowns())
@@ -63,6 +65,18 @@ public class FrostCharacter : MonoBehaviour
         cooldownHandler.setCooldowns(cooldowns);
     }
 
+    void FixedUpdate()
+    {
+        if(doesAHumanPlay)
+        {
+            Move();
+        }
+        else
+        {
+            BotMove();
+        }
+    }
+
     void Move()
     {
         transform.position += new Vector3(0, 0, (float)(buttonsValues[0] * speed));
@@ -71,6 +85,8 @@ public class FrostCharacter : MonoBehaviour
 
     void Shoot()
     {
+        AudioSource audioSource = GetComponent<AudioSource>();
+
         for (int i = 1; i < buttonsValues.Length - 1; i++)
         {
             int j = i - 1;
@@ -79,10 +95,12 @@ public class FrostCharacter : MonoBehaviour
                 Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[j].transform.position.y, transform.position.z);
                 Instantiate(bulletsPrefabs[j], pos, bulletsPrefabs[j].transform.rotation, bulletsTransform);
                 cooldowns[j] = delays[j];
+                audioSource.clip = audioClips[j];
+                audioSource.Play();
             }
         }
 
-        if(buttonsValues[3] == 1 && cooldowns[2] <= 0 && !canShootASuperBullet)
+        if (buttonsValues[3] == 1 && cooldowns[2] <= 0 && !canShootASuperBullet)
         {
             float posX = 0;
 
@@ -99,11 +117,16 @@ public class FrostCharacter : MonoBehaviour
             GameObject wall = Instantiate(bulletsPrefabs[2], pos, bulletsPrefabs[2].transform.rotation, bulletsTransform) as GameObject;
             wall.GetComponent<FrostWall>().SetWhoCreated(this);
             cooldowns[2] = delays[2];
-        } else if(buttonsValues[3] == 1 && cooldowns[2] <= 0 && canShootASuperBullet)
+            audioSource.clip = audioClips[2];
+            audioSource.Play();
+        }
+        else if (buttonsValues[3] == 1 && cooldowns[2] <= 0 && canShootASuperBullet)
         {
             Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[3].transform.position.y, transform.position.z);
             Instantiate(bulletsPrefabs[3], pos, bulletsPrefabs[3].transform.rotation, bulletsTransform);
             cooldowns[2] = delays[3];
+            audioSource.clip = audioClips[3];
+            audioSource.Play();
             canShootASuperBullet = false;
         }
     }

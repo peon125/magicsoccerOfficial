@@ -6,13 +6,12 @@ public class GameSet : MonoBehaviour
 {
     public GameObject[] characters, selectedCharacters;
     public bool[] playingPlayers;
+    Color backgroundColor;
     float musicVolume, soundsVolume;
     int grassColorMode;
 
 	void Start() 
     {
-        grassColorMode = 0;
-
         if (GameObject.FindWithTag("NotToDestroy-GameSet"))
         {
             Destroy(gameObject);
@@ -22,12 +21,21 @@ public class GameSet : MonoBehaviour
             tag = "NotToDestroy-GameSet";
         }
 
+        musicVolume = 1f;
+        soundsVolume = 1f;
+        grassColorMode = 0;
+
+        if(backgroundColor == null)
+        {
+            backgroundColor = new Color(1, 1, 0.50588f);
+        }
+
         DontDestroyOnLoad(gameObject);
 	}
 
-    public void SetWhetherAPlayerIsPlaying(int player)
+    public void SetWhetherAPlayerIsPlaying(int player, bool b)
     {
-        playingPlayers[player] = !playingPlayers[player];
+        playingPlayers[player] = b;
     }
 
     public void SetAPlayersSelectedCharacter(int player, int index)
@@ -63,5 +71,15 @@ public class GameSet : MonoBehaviour
     public void SetGrassColorMode(int i)
     {
         grassColorMode = i;
+    }
+
+    public Color GetBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    public void SetBackgroundColor(Color c)
+    {
+        backgroundColor = c;
     }
 }

@@ -38,6 +38,8 @@ public class FireCharacter : MonoBehaviour
 	
 	void Update()
     {
+        GetComponent<AudioSource>().volume = player.GetSoundsVolume();
+
         if (doesAHumanPlay)
         {
             buttonsValues = player.GetButtonsValues();
@@ -87,12 +89,12 @@ public class FireCharacter : MonoBehaviour
         for (int i = 1; i < buttonsValues.Length; i++)
         {
             int j = i - 1;
-            if(buttonsValues[i] == 1 && cooldowns [j] <=0)
+            if (buttonsValues[i] == 1 && cooldowns[j] <= 0)
             {
                 Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[j].transform.position.y, transform.position.z);
                 Instantiate(bulletsPrefabs[j], pos, bulletsPrefabs[j].transform.rotation, bulletsTransform);
                 cooldowns[j] = delays[j];
-                audioSource.clip = audioClips[i-1];
+                audioSource.clip = audioClips[i - 1];
                 audioSource.Play();
             }
         }
@@ -122,7 +124,7 @@ public class FireCharacter : MonoBehaviour
                 GameObject bullet = Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
                 bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
                 cooldowns[i] = delays[i];
-                audioSource.clip = audioClips[i-1];
+                audioSource.clip = audioClips[i - 1];
                 audioSource.Play();
                 break;
             }

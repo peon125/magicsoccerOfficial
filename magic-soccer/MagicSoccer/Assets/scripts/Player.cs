@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     public int whichPlayer;
     int[] buttonsValues;
     GameSet gameSet;
-    bool doesAHumanPlay;
-    bool doResetCooldowns;
+    float soundsVolume;
+    bool doResetCooldowns, doesAHumanPlay;
 
 	void Start() 
     {
@@ -32,6 +32,11 @@ public class Player : MonoBehaviour
 
         doesAHumanPlay = gameSet.playingPlayers[whichPlayer - 1];
 	}
+
+    void Update()
+    {
+        soundsVolume = gameSet.GetSoundsVolume();
+    }
 
     public void SetButtonValueToOne(int i)
     {
@@ -66,5 +71,10 @@ public class Player : MonoBehaviour
     public void SetDoResetCooldowns(bool b)
     {
         doResetCooldowns = b;
+    }
+
+    public float GetSoundsVolume()
+    {
+        return soundsVolume;
     }
 }
