@@ -1,22 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj" RefactoringSettings.EnableRefactorings="True">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Grass.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Bullet.cs">
     <Files>
       <File FileName="Assets\scripts\CooldownHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\FrostCharacter.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\FireCharacter.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\GameSet.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\FrostCharacter.cs" Line="163" Column="77" />
+      <File FileName="Assets\scripts\FireCharacter.cs" Line="127" Column="77" />
+      <File FileName="Assets\scripts\GameSet.cs" Line="32" Column="9" />
       <File FileName="Assets\scripts\Menu01Control.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Music.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\PauseMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\Grass.cs" Line="33" Column="111" />
+      <File FileName="Assets\scripts\Grass.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Menu02Control.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Bullet.cs" Line="34" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <RunToCursorBreakpoint file="D:\UnityProjects\soccerOfficial\magic-soccer\MagicSoccer\Assets\scripts\Grass.cs" line="23" column="10" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

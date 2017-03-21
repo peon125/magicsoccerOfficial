@@ -38,8 +38,7 @@ public class MatchControl : MonoBehaviour
 
         scoreText.text = p1Score + " - " + p2Score;
 
-        //if((p1Score >= 3 || p2Score >= 3) && (p1Score > p2Score + 1 || p2Score > p1Score + 1))
-        if(p1Score == 1)
+        if((p1Score >= 3 || p2Score >= 3) && (p1Score > p2Score + 1 || p2Score > p1Score + 1))
         {
             endBoard.gameObject.SetActive(true);
             endBoard.EndGame(p1Score, p2Score, (int)time);

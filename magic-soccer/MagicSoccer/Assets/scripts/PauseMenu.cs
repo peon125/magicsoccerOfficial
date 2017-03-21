@@ -65,6 +65,15 @@ public class PauseMenu : MonoBehaviour
         isPaused = !isPaused;
         transform.GetChild(0).gameObject.SetActive(isPaused);
 
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+
         foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("uibutton"))
         {
             if(gameObject.GetComponent<Button>())

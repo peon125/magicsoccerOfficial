@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Bullet : MonoBehaviour 
 {
     public float speed;
-    public float force;
+    public float momentum;
     public int whatKindOfShot;
 
 	void Start() 
@@ -16,15 +17,15 @@ public class Bullet : MonoBehaviour
             speed = -speed;
         }
 
-        GetComponent<Rigidbody>().velocity = new Vector3(speed, 0, 0);
+        Rigidbody r = GetComponent<Rigidbody>();
+        r.velocity = new Vector3(speed, 0, 0);
+        r.mass = Math.Abs(momentum / speed);
 	}
 
     void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.name == "ball")
         {
-            Rigidbody r = GetComponent<Rigidbody>();
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(force * r.velocity);
             Destroy(gameObject);
         }
     }

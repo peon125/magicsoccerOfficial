@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Menu02Control : MonoBehaviour 
 {
+    public Color defaultColor;
     public Camera sceneCamera;
     public Transform[] listsTranforms;
     public Image[] p1SkillsPics;
@@ -23,6 +24,11 @@ public class Menu02Control : MonoBehaviour
         gameSet = GameObject.Find("gameSet").GetComponent<GameSet>();
 
         sceneCamera.backgroundColor = gameSet.GetBackgroundColor();
+
+        if (sceneCamera.backgroundColor == new Color(0, 0, 0, 0))
+        {
+            sceneCamera.backgroundColor = defaultColor;
+        }
 
         skillsPics = new Image[gameSet.characters.Length, p1SkillsPics.Length];
         skillsDescs = new Text[gameSet.characters.Length, p1SkillsDescs.Length];
@@ -52,6 +58,14 @@ public class Menu02Control : MonoBehaviour
                 av.GetComponent<CharactersAvatar>().SetPlayer(i);
             }
         }
+
+        for (int i = 0; i < gameSet.playingPlayers.Length; i++)
+        {
+            if(gameSet.playingPlayers[i] == false)
+            {
+                IAmABot(i);
+            }
+        }
     }
 
     public void SetDisplayedPicsAndDescs(int player, int index)
@@ -72,6 +86,14 @@ public class Menu02Control : MonoBehaviour
 
     public void LetsStartTheMatch()
     {
-        SceneManager.LoadScene("match");
+        if (!(gameSet.selectedCharacters[0] == null || gameSet.selectedCharacters[1] == null))
+        {
+            SceneManager.LoadScene("match");
+        }
+    }
+
+    public void IAmABot(int player)
+    {
+        gameSet.selectedCharacters[player] = gameSet.characters[Random.Range(0, 2)];
     }
 }

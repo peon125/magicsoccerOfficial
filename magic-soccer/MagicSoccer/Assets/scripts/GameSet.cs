@@ -25,11 +25,6 @@ public class GameSet : MonoBehaviour
         soundsVolume = 1f;
         grassColorMode = 0;
 
-        if(backgroundColor == null)
-        {
-            backgroundColor = new Color(1, 1, 0.50588f);
-        }
-
         DontDestroyOnLoad(gameObject);
 	}
 

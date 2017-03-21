@@ -3,28 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class EndBoard : MonoBehaviour 
 {
-    public GameObject ground, ball;
     public Text whoWon, totalTime;
-    float time;
-
-    void Start()
-    {
-        time = 0;
-    }
-
-	void Update() 
-    {
-        time += Time.deltaTime;
-
-        if (time >= 0.2)
-        {
-            ground.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-            time = 0;
-        }
-	}
 
     public void EndGame(int p1Score, int p2Score, int time)
     {
@@ -47,6 +30,11 @@ public class EndBoard : MonoBehaviour
             }
         }
 
-        ball.SetActive(false);
+        Time.timeScale = 0;
+    }
+
+    public void GoHome()
+    {
+        SceneManager.LoadScene("menu01");
     }
 }
