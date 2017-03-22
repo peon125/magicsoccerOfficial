@@ -31,8 +31,10 @@ public class FireCharacter : MonoBehaviour
         {
             for (int i = 0; i < delays.Length; i++)
             {
-                delays[i] *= 1.2f;
+                delays[i] *= 1.3f;
             }
+
+            speed /= 1.3f;
         }
 	}
 	
@@ -124,7 +126,7 @@ public class FireCharacter : MonoBehaviour
                 GameObject bullet = Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
                 bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
                 cooldowns[i] = delays[i];
-                audioSource.clip = audioClips[i - 1];
+                audioSource.clip = audioClips[i];
                 audioSource.Play();
                 break;
             }

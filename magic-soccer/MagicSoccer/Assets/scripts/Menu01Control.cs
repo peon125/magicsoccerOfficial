@@ -18,7 +18,7 @@ public class Menu01Control : MonoBehaviour
 
         gameSet = GameObject.Find("gameSet").GetComponent<GameSet>();
 
-        gameSet.SetWhetherAPlayerIsPlaying(0, false); //in case someone came back to the this scene from other scene
+        gameSet.SetWhetherAPlayerIsPlaying(0, false);
         gameSet.SetWhetherAPlayerIsPlaying(1, false);
         gameSet.SetBackgroundColor(randomColor);
     }
