@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameSet gameSet;
     public Scrollbar musicScrollbar, soundsScrollbar;
     public GameObject colorChangeButton;
-    int colorMode; //0 for green field, 1 for field changing colors
+    int colorMode, cameraMode; 
     bool isPaused;
     float time;
 
@@ -28,6 +28,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         time = 0;
         colorMode = gameSet.GetGrassColorMode();
+        cameraMode = 0;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -101,6 +102,27 @@ public class PauseMenu : MonoBehaviour
         else if(colorMode == 1)
         {
             go.transform.GetChild(0).GetComponent<Text>().text = "illuminating";
+        }
+    }
+
+    public void ChangeCameraMode(GameObject go)
+    {
+        cameraMode++;
+        cameraMode %= 2;
+
+        Camera camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+        if (cameraMode == 0)
+        {
+            camera.orthographic = false;
+            go.GetComponent<Image>().color = new Color(0.9f, 0.3f, 0.9f);
+            go.transform.GetChild(0).GetComponent<Text>().text = "perspective";
+        }
+        else
+        {
+            camera.orthographic = true;
+            go.GetComponent<Image>().color = new Color(0.9f, 0.9f, 0.3f);
+            go.transform.GetChild(0).GetComponent<Text>().text = "orthographic";
         }
     }
 
