@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FrostCharacter : MonoBehaviour 
 {
@@ -9,6 +10,7 @@ public class FrostCharacter : MonoBehaviour
     public float[] delays;
     public float speed, boundary;
     public int wallsDistanceFromAPlayer;
+    AudioSource audioSource;
     CooldownHandler cooldownHandler;
     Player player;
     Transform bulletsTransform;
@@ -19,6 +21,7 @@ public class FrostCharacter : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         cooldowns = new float[3];
         player = transform.parent.GetComponent<Player>();
         cooldownHandler = player.cooldownHandler;
@@ -85,8 +88,6 @@ public class FrostCharacter : MonoBehaviour
 
     void Shoot()
     {
-        AudioSource audioSource = GetComponent<AudioSource>();
-
         for (int i = 1; i < buttonsValues.Length - 1; i++)
         {
             int j = i - 1;
@@ -152,15 +153,48 @@ public class FrostCharacter : MonoBehaviour
 
     void BotShoot()
     {
-        for (int i = 0; i < cooldowns.Length; i++)
+        if (cooldowns[0] <= 0 && Math.Abs(ball.transform.position.x - transform.position.x) < 11)
         {
-            if(cooldowns[i] <= 0)
+            Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[0].transform.position.y, transform.position.z);
+            Instantiate(bulletsPrefabs[0], pos, bulletsPrefabs[0].transform.rotation, bulletsTransform);
+            cooldowns[0] = delays[0];
+        }
+
+        if(cooldowns[1] <= 0)
+        {
+            Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[1].transform.position.y, transform.position.z);
+            Instantiate(bulletsPrefabs[1], pos, bulletsPrefabs[1].transform.rotation, bulletsTransform);
+            cooldowns[1] = delays[1];
+        }
+
+        if (cooldowns[2] <= 0 && !canShootASuperBullet && Math.Abs(ball.transform.position.x - transform.position.x) < 5)
+        {
+            float posX = 0;
+
+            if (transform.position.x > 0)
             {
-                Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[i].transform.position.y, transform.position.z);
-                Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
-                cooldowns[i] = delays[i];
-                break;
+                posX = transform.position.x - wallsDistanceFromAPlayer;
             }
+            else
+            {
+                posX = transform.position.x + wallsDistanceFromAPlayer;
+            }
+
+            Vector3 pos = new Vector3(posX, bulletsPrefabs[2].transform.position.y, transform.position.z);
+            GameObject wall = Instantiate(bulletsPrefabs[2], pos, bulletsPrefabs[2].transform.rotation, bulletsTransform) as GameObject;
+            wall.GetComponent<FrostWall>().SetWhoCreated(this);
+            cooldowns[2] = delays[2];
+            audioSource.clip = audioClips[2];
+            audioSource.Play();
+        }
+        else if (buttonsValues[3] == 1 && cooldowns[2] <= 0 && canShootASuperBullet)
+        {
+            Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[3].transform.position.y, transform.position.z);
+            Instantiate(bulletsPrefabs[3], pos, bulletsPrefabs[3].transform.rotation, bulletsTransform);
+            cooldowns[2] = delays[3];
+            audioSource.clip = audioClips[3];
+            audioSource.Play();
+            canShootASuperBullet = false;
         }
     }
 

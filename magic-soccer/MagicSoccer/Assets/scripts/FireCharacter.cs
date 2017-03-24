@@ -9,6 +9,7 @@ public class FireCharacter : MonoBehaviour
     public GameObject[] bulletsPrefabs;
     public float[] delays;
     public float speed, boundary;
+    AudioSource audioSource;
     CooldownHandler cooldownHandler;
     Player player;
     Transform bulletsTransform;
@@ -19,6 +20,7 @@ public class FireCharacter : MonoBehaviour
 
 	void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         cooldowns = new float[3];
         player = transform.parent.GetComponent<Player>();
         cooldownHandler = player.cooldownHandler;
@@ -86,8 +88,6 @@ public class FireCharacter : MonoBehaviour
 
     void Shoot()
     {
-        AudioSource audioSource = GetComponent<AudioSource>();
-
         for (int i = 1; i < buttonsValues.Length; i++)
         {
             int j = i - 1;
@@ -116,19 +116,18 @@ public class FireCharacter : MonoBehaviour
 
     void BotShoot()
     {
-        AudioSource audioSource = GetComponent<AudioSource>();
-
         for (int i = 0; i < cooldowns.Length; i++)
         {
             if (cooldowns[i] <= 0)
             {
-                Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[i].transform.position.y, transform.position.z);
-                GameObject bullet = Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
-                bullet.GetComponent<MeshRenderer>().material.color = transform.GetChild(0).GetComponent<Renderer>().material.color;
-                cooldowns[i] = delays[i];
-                audioSource.clip = audioClips[i];
-                audioSource.Play();
-                break;
+                if ((i < 2 && Mathf.Abs(ball.transform.position.x - transform.position.x) < 11) || i == 2)
+                {
+                    Vector3 pos = new Vector3(transform.position.x, bulletsPrefabs[i].transform.position.y, transform.position.z);
+                    Instantiate(bulletsPrefabs[i], pos, bulletsPrefabs[i].transform.rotation, bulletsTransform);
+                    cooldowns[i] = delays[i];
+                    audioSource.clip = audioClips[i];
+                    audioSource.Play();
+                }
             }
         }
     }

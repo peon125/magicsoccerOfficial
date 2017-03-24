@@ -36,7 +36,7 @@ public class Music : MonoBehaviour
             else if(SceneManager.GetActiveScene().name == "match")
             {
 
-                GetComponent<AudioSource>().clip = tracks[1];
+                GetComponent<AudioSource>().clip = tracks[Random.Range(1, tracks.Length)];
                 GetComponent<AudioSource>().Play();
             }
         }
